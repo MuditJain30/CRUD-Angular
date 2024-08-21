@@ -1,0 +1,67 @@
+<div class="container mt-2">
+        <form [formGroup]="userForm" (ngSubmit)="save()">
+            <div class="row mt-2 d-flex">
+                <div class="form-group col-md-6">
+                    <label for="emp_id">Id</label>
+                    <input type="number" class="form-control" name="emp_id" formControlName="emp_id" id="emp_id" placeholder="Enter Id">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="emp_name">Name</label>
+                    <input type="text" class="form-control" name="emp_name" formControlName="emp_name" id="emp_name" placeholder="Enter Name">
+                </div>
+            </div>
+            <div class="row mt-2 d-flex">
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" name="email" formControlName="email" id="email" placeholder="Enter Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control" name="age" formControlName="age" id="age" placeholder="Enter Age">
+                </div>
+            </div>
+            <div class="row mt-2 d-flex btns">
+                <div class="button-container">
+                    <button type="submit" class="btn mt-1 me-1 ms-1 btn-primary">Add</button>
+                    <button type="reset" class="btn mt-1 me-1 ms-1 btn-secondary">Reset</button>
+                </div>
+            </div>
+        </form>
+</div>
+<br>
+<div class="container mt-4">
+    <h1>Employee Table</h1>
+    <form class="form-inline my-2 my-lg-0 row">
+        <div class="col-auto form-group">
+            <input class="form-control mr-sm-2" [(ngModel)]="searchEmpId" name="searchEmpId" type="search" placeholder="Search by ID" aria-label="Search">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="searchEmployee()">Search</button>
+        </div>
+    </form>
+    <!--<button class="btn btn-outline-primary" (click)="toggleSortOrder()">Sort by ID: {{sortOrder}}</button>-->
+    <table class="table">
+        <thead>
+            <h1 *ngIf="!isResultLoaded">Loading..........</h1>
+            <tr>
+                <th (click)="toggleSortOrder()" style="cursor: pointer;" scope="col">
+                    Id<span *ngIf="sortOrder === 'ASC'">&#9650;</span><span *ngIf="sortOrder === 'DESC'">&#9660;</span></th>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let EmployeeItem of employeeArray">
+                <td>{{EmployeeItem.emp_id}}</td>
+                <td>{{EmployeeItem.emp_name}}</td>
+                <td>{{EmployeeItem.email}}</td>
+                <td>{{EmployeeItem.age}}</td>
+                <td>
+                    <button type="button" class="btn btn-success" (click)="setUpdate(EmployeeItem)">Update</button>
+                    <button type="button" class="btn btn-danger" (click)="setDelete(EmployeeItem)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
